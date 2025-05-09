@@ -39,18 +39,10 @@ Card::Card(QString label, int value, QString suit, QColor textColor, QGraphicsIt
 
 void Card::setFaceUp(bool up) {
     if (faceUp == up || getValue() == 20) return;
-    //   qDebug() << "Cart111";
     faceUp = up;
-    // qDebug() << "Card" << label << (up ? "face up" : "face down");
-
-    // Печатаем дополнительные данные для диагностики
-    //   qDebug() << "Brush color:" << (up ? "white" : "gray");
-    //  qDebug() << "Value:" << value;
-    //  qDebug() << "Text visibility:" << (up ? "visible" : "hidden");
-
     textItem->setVisible(up);
     setBrush(Qt::white);
-    update();  // Перерисовать
+    update();
 }
 
 
@@ -93,15 +85,11 @@ void Card::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
             }
             break;
         } else if (auto *foundation = dynamic_cast<Foundation *>(item)) {
-            qDebug() << "ISfoundation:" << label;
             if (foundation->canAcceptCard(this)) {
                 foundation->addCard(this);
-                qDebug() << "CARDS" << mainWindow->cards;
                 mainWindow->cards++;
-                qDebug() << "CARDS" << mainWindow->cards;
                 if (mainWindow->cards == 36) QMessageBox::information(mainWindow, "Победа", "Ты выиграл!");
                 setStack(nullptr);
-                qDebug() << "Card placed in foundation:" << label;
                 placed = true;
                 break;
             }

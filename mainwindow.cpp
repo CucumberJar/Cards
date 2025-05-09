@@ -39,13 +39,17 @@ void MainWindow::createAndDealDeck() {
         card1->setFlag(QGraphicsItem::ItemIsMovable, false);
         for (int row = 0; row < col; ++row) {
             Card *card = deck[index++];
-            card->setFaceUp(true);
+        //    card->setFaceUp(true);//Отключи для усложнения
             card->setZValue(row);
             card->setPos(50 + col * 120, 50 + row * 30);
             scene->addItem(card);
             card->setTNumber(col);
             tableau[col].push_back(card);
         }
+    }
+
+    for (int i = 1; i < 9; ++i) {
+        tableau[i].back()->setFaceUp(true);
     }
 
     for (int i = 0; i < 4; ++i) {
