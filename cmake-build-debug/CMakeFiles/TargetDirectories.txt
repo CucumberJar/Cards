@@ -1,0 +1,5 @@
+D:/Cards/cmake-build-debug/CMakeFiles/Cards.dir
+D:/Cards/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/Cards/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+D:/Cards/cmake-build-debug/CMakeFiles/Cards_autogen_timestamp_deps.dir
+D:/Cards/cmake-build-debug/CMakeFiles/Cards_autogen.dir
