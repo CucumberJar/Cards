@@ -2,10 +2,9 @@
 #include "foundation.h"
 #include <QMessageBox>
 #include <QGraphicsSceneMouseEvent>
-#include <QGraphicsScene>
 #include <QFont>
 #include <QPen>
-#include <QDebug>
+
 
 Card::Card(QString label, int value, QString suit, QColor textColor, QGraphicsItem *parent, int tNumber,
            MainWindow *mainWindow1)
@@ -18,7 +17,6 @@ Card::Card(QString label, int value, QString suit, QColor textColor, QGraphicsIt
           mainWindow(mainWindow1),
           color(textColor),
           m_stack(nullptr) {
-
     setRect(0, 0, 80, 100);
     setBrush(Qt::gray);
     if (value == 20) {
@@ -29,7 +27,6 @@ Card::Card(QString label, int value, QString suit, QColor textColor, QGraphicsIt
     setFlag(ItemIsMovable);
     setFlag(ItemIsSelectable);
     setAcceptedMouseButtons(Qt::LeftButton);
-
     textItem = new QGraphicsTextItem(label, this);
     textItem->setDefaultTextColor(color);
     textItem->setFont(QFont("Arial", 14, QFont::Bold));
@@ -37,62 +34,47 @@ Card::Card(QString label, int value, QString suit, QColor textColor, QGraphicsIt
     textItem->setVisible(false);
 }
 
+
 void Card::setFaceUp(bool up) {
     if (faceUp == up || getValue() == 20) return;
     faceUp = up;
     textItem->setVisible(up);
     setBrush(up ? Qt::white : Qt::gray);
     update();
-
-    // Обновим флаг возможности перемещения только для открытой карты
     setFlag(QGraphicsItem::ItemIsMovable, faceUp);
 }
+
 
 bool Card::isFaceUp() const {
     return faceUp;
 }
 
+
 void Card::setStack(Stack *stack) {
     m_stack = stack;
 }
 
-Stack *Card::getStack() const {
-    return m_stack;
-}
 
 void Card::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     if (!faceUp) return;
-
     originalPositions.clear();
     oldZValues.clear();
     movingGroup.clear();
-
-// СТЕК И КЛИК
     const auto &stack = mainWindow->tableau[tNumber];
     QPointF clickScenePos = event->scenePos();
-    qDebug() << "Mouse click at scene pos:" << clickScenePos;
-
-// Найдем карту под курсором — СВЕРХУ ВНИЗ
     int index = -1;
     for (int i = stack.size() - 1; i >= 0; --i) {
         Card *card = stack[i];
         if (!card->isFaceUp()) continue;
-
         QRectF sceneRect = card->mapToScene(card->boundingRect()).boundingRect();
         if (sceneRect.contains(clickScenePos)) {
             index = i;
             break;
         }
     }
-
     if (index == -1) {
-        qDebug() << "No card under mouse in stack" << tNumber;
         return;
     }
-
-    qDebug() << "Clicked card at index" << index << "in stack" << tNumber;
-
-// Собираем группу карт сверху от найденной
     int baseZ = 1000;
     for (int i = index; i < stack.size(); ++i) {
         Card *card = stack[i];
@@ -131,7 +113,7 @@ void Card::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
                 mainWindow->cards++;
                 qDebug() << this->getValue();
                 this->setZValue(100 + mainWindow->cards);
-                if (mainWindow->cards == 36)
+                if (mainWindow->cards == 52)
                     QMessageBox::information(mainWindow, "Победа", "Ты выиграл!");
                 setStack(nullptr);
                 placed = true;
@@ -151,17 +133,21 @@ void Card::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     QGraphicsRectItem::mouseReleaseEvent(event);
 }
 
+
 void Card::setTNumber(int number) {
     tNumber = number;
 }
+
 
 int Card::getTNumber() {
     return tNumber;
 }
 
+
 void Card::setInFoundation() {
     inFoundation = true;
 }
+
 
 bool Card::check(Card *targetCard, Card *movingCard) {
     if (!targetCard || !movingCard) return false;
@@ -174,9 +160,9 @@ bool Card::check(Card *targetCard, Card *movingCard) {
     Card *lastCard = col.back();
     bool valueOk = (lastCard->value == movingCard->value + 1);
     bool colorOk = (lastCard->color != movingCard->color);
-
     return valueOk && colorOk;
 }
+
 
 void Card::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) {
     if (tNumber == 7)

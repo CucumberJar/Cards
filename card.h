@@ -30,13 +30,9 @@ public:
 
     void setStack(Stack *stack);
 
-    Stack *getStack() const;
-
     QString getSuit() const { return suit; }
 
     int getValue() const { return value; }
-
-    bool getInFoundation();
 
     void setInFoundation();
 
@@ -54,7 +50,6 @@ private:
     QVector<QPointF> originalPositions;
     std::vector<Card *> movingGroup;
     QVector<qreal> oldZValues;
-    int oldZValue;
     bool inFoundation = false;
     QString label;
     int value;
@@ -63,12 +58,9 @@ private:
     bool faceUp;
     int tNumber;
     QGraphicsTextItem *textItem;
-    QPointF originalPos;
     MainWindow *mainWindow;
     Stack *m_stack = nullptr;
-
     bool check(Card *card1, Card *card);
-
 
 };
 
