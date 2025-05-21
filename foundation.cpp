@@ -29,7 +29,7 @@ void Foundation::addCard(Card *card) {
     mainWindow->updateDeck(card->getTNumber());
     card->setPos(pos());
     card->setFaceUp(true);
-    card->setZValue(index++);
+    card->setZValue(100);
     card->setFlag(QGraphicsItem::ItemIsMovable, false);
     card->setStack(nullptr);
 }

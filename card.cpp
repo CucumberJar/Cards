@@ -41,10 +41,12 @@ void Card::setFaceUp(bool up) {
     if (faceUp == up || getValue() == 20) return;
     faceUp = up;
     textItem->setVisible(up);
-    setBrush(Qt::white);
+    setBrush(up ? Qt::white : Qt::gray);
     update();
-}
 
+    // Обновим флаг возможности перемещения только для открытой карты
+    setFlag(QGraphicsItem::ItemIsMovable, faceUp);
+}
 
 bool Card::isFaceUp() const {
     return faceUp;
@@ -60,35 +62,77 @@ Stack *Card::getStack() const {
 
 void Card::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     if (!faceUp) return;
-    oldZValue = zValue();
-    setZValue(20);
-    originalPos = pos();
-    QGraphicsRectItem::mousePressEvent(event);
+
+    originalPositions.clear();
+    oldZValues.clear();
+    movingGroup.clear();
+
+// СТЕК И КЛИК
+    const auto &stack = mainWindow->tableau[tNumber];
+    QPointF clickScenePos = event->scenePos();
+    qDebug() << "Mouse click at scene pos:" << clickScenePos;
+
+// Найдем карту под курсором — СВЕРХУ ВНИЗ
+    int index = -1;
+    for (int i = stack.size() - 1; i >= 0; --i) {
+        Card *card = stack[i];
+        if (!card->isFaceUp()) continue;
+
+        QRectF sceneRect = card->mapToScene(card->boundingRect()).boundingRect();
+        if (sceneRect.contains(clickScenePos)) {
+            index = i;
+            break;
+        }
+    }
+
+    if (index == -1) {
+        qDebug() << "No card under mouse in stack" << tNumber;
+        return;
+    }
+
+    qDebug() << "Clicked card at index" << index << "in stack" << tNumber;
+
+// Собираем группу карт сверху от найденной
+    int baseZ = 1000;
+    for (int i = index; i < stack.size(); ++i) {
+        Card *card = stack[i];
+        if (!card->isFaceUp()) break;
+        movingGroup.push_back(card);
+        oldZValues.push_back(card->zValue());
+        originalPositions.push_back(card->pos());
+        card->setZValue(baseZ++);
+    }
 }
+
 
 void Card::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
     if (!faceUp) return;
-    QGraphicsRectItem::mouseMoveEvent(event);
+    QPointF delta = event->scenePos() - event->lastScenePos();
+    for (Card *c: movingGroup) {
+        c->moveBy(delta.x(), delta.y());
+    }
 }
 
+
 void Card::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
-
     if (!faceUp) return;
-    QList<QGraphicsItem *> colliding = scene()->collidingItems(this);
     bool placed = false;
-
+    QList<QGraphicsItem *> colliding = scene()->collidingItems(this);
     for (QGraphicsItem *item: colliding) {
-        if (auto *card1 = dynamic_cast<Card *>(item)) {
-            if (check(card1, this)) {
-                mainWindow->moveCard(card1->tNumber, this);
+        if (auto *targetCard = dynamic_cast<Card *>(item)) {
+            if (check(targetCard, this)) {
+                mainWindow->moveGroup(tNumber, targetCard->getTNumber(), movingGroup);
                 placed = true;
+                break;
             }
-            break;
         } else if (auto *foundation = dynamic_cast<Foundation *>(item)) {
-            if (foundation->canAcceptCard(this)) {
+            if (movingGroup.size() == 1 && foundation->canAcceptCard(this)) {
                 foundation->addCard(this);
                 mainWindow->cards++;
-                if (mainWindow->cards == 36) QMessageBox::information(mainWindow, "Победа", "Ты выиграл!");
+                qDebug() << this->getValue();
+                this->setZValue(100 + mainWindow->cards);
+                if (mainWindow->cards == 36)
+                    QMessageBox::information(mainWindow, "Победа", "Ты выиграл!");
                 setStack(nullptr);
                 placed = true;
                 break;
@@ -96,9 +140,14 @@ void Card::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
         }
     }
     if (!placed) {
-        setZValue(oldZValue);
-        setPos(originalPos);
+        for (int i = 0; i < movingGroup.size(); ++i) {
+            movingGroup[i]->setZValue(oldZValues[i]);
+            movingGroup[i]->setPos(originalPositions[i]);
+        }
     }
+    mainWindow->updateTableauPositions();
+    movingGroup.clear();
+    oldZValues.clear();
     QGraphicsRectItem::mouseReleaseEvent(event);
 }
 
@@ -114,15 +163,22 @@ void Card::setInFoundation() {
     inFoundation = true;
 }
 
-bool Card::check(Card *card1, Card *card) {
-    if (!card) return false;
-    if (card1->value == 20) {
-        return true;
+bool Card::check(Card *targetCard, Card *movingCard) {
+    if (!targetCard || !movingCard) return false;
+    if (targetCard->getTNumber() == 7) return false;
+    if (targetCard->value == 20) {
+        return movingCard->value == 13;
     }
-    bool canAccept = card1->getValue() == card->value + 1 &&
-                     card1->color != card->color && card->getTNumber() != card1->tNumber;
-    return canAccept;
+    auto &col = mainWindow->tableau[targetCard->tNumber];
+    if (col.empty()) return false;
+    Card *lastCard = col.back();
+    bool valueOk = (lastCard->value == movingCard->value + 1);
+    bool colorOk = (lastCard->color != movingCard->color);
+
+    return valueOk && colorOk;
 }
 
-
-
+void Card::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) {
+    if (tNumber == 7)
+        mainWindow->cardToBack(this);
+}

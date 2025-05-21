@@ -1,5 +1,6 @@
 Cards_autogen/timestamp: \
 	D:/Cards/CMakeLists.txt \
+	D:/Cards/StartMenu.h \
 	D:/Cards/card.cpp \
 	D:/Cards/card.h \
 	D:/Cards/cmake-build-debug/CMakeFiles/3.30.5/CMakeCCompiler.cmake \
@@ -9,9 +10,13 @@ Cards_autogen/timestamp: \
 	D:/Cards/cmake-build-debug/Cards_autogen/moc_predefs.h \
 	D:/Cards/foundation.cpp \
 	D:/Cards/foundation.h \
+	D:/Cards/helpdialog.cpp \
+	D:/Cards/helpdialog.h \
 	D:/Cards/main.cpp \
 	D:/Cards/mainwindow.cpp \
 	D:/Cards/mainwindow.h \
+	D:/Cards/startmenu.cpp \
+	D:/Cards/startmenu.h \
 	D:/Program/IDE/CLion/CLion\ 2024.3.1.1/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeCInformation.cmake \
 	D:/Program/IDE/CLion/CLion\ 2024.3.1.1/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeCXXInformation.cmake \
 	D:/Program/IDE/CLion/CLion\ 2024.3.1.1/bin/cmake/win/x64/share/cmake-3.30/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake \
@@ -447,12 +452,14 @@ Cards_autogen/timestamp: \
 	D:/QT/6.8.1/mingw_64/include/QtGui/qtransform.h \
 	D:/QT/6.8.1/mingw_64/include/QtGui/qwindowdefs.h \
 	D:/QT/6.8.1/mingw_64/include/QtGui/qwindowdefs_win.h \
+	D:/QT/6.8.1/mingw_64/include/QtWidgets/QDialog \
 	D:/QT/6.8.1/mingw_64/include/QtWidgets/QGraphicsRectItem \
 	D:/QT/6.8.1/mingw_64/include/QtWidgets/QGraphicsScene \
 	D:/QT/6.8.1/mingw_64/include/QtWidgets/QGraphicsTextItem \
 	D:/QT/6.8.1/mingw_64/include/QtWidgets/QGraphicsView \
 	D:/QT/6.8.1/mingw_64/include/QtWidgets/QMainWindow \
 	D:/QT/6.8.1/mingw_64/include/QtWidgets/QMessageBox \
+	D:/QT/6.8.1/mingw_64/include/QtWidgets/QWidget \
 	D:/QT/6.8.1/mingw_64/include/QtWidgets/qabstractscrollarea.h \
 	D:/QT/6.8.1/mingw_64/include/QtWidgets/qdialog.h \
 	D:/QT/6.8.1/mingw_64/include/QtWidgets/qdialogbuttonbox.h \

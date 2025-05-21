@@ -46,10 +46,14 @@ protected:
 
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
 
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
+
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
 private:
-
+    QVector<QPointF> originalPositions;
+    std::vector<Card *> movingGroup;
+    QVector<qreal> oldZValues;
     int oldZValue;
     bool inFoundation = false;
     QString label;
@@ -62,6 +66,7 @@ private:
     QPointF originalPos;
     MainWindow *mainWindow;
     Stack *m_stack = nullptr;
+
     bool check(Card *card1, Card *card);
 
 

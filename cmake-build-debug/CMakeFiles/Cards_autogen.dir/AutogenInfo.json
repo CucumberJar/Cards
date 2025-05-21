@@ -230,7 +230,9 @@
 	[
 		[ "D:/Cards/card.h", "MU", "EWIEGA46WW/moc_card.cpp", null ],
 		[ "D:/Cards/foundation.h", "MU", "EWIEGA46WW/moc_foundation.cpp", null ],
-		[ "D:/Cards/mainwindow.h", "MU", "EWIEGA46WW/moc_mainwindow.cpp", null ]
+		[ "D:/Cards/helpdialog.h", "MU", "EWIEGA46WW/moc_helpdialog.cpp", null ],
+		[ "D:/Cards/mainwindow.h", "MU", "EWIEGA46WW/moc_mainwindow.cpp", null ],
+		[ "D:/Cards/startmenu.h", "MU", "EWIEGA46WW/moc_startmenu.cpp", null ]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
 	"INCLUDE_DIR" : "D:/Cards/cmake-build-debug/Cards_autogen/include",
@@ -305,8 +307,10 @@
 	[
 		[ "D:/Cards/card.cpp", "MU", null ],
 		[ "D:/Cards/foundation.cpp", "MU", null ],
+		[ "D:/Cards/helpdialog.cpp", "MU", null ],
 		[ "D:/Cards/main.cpp", "MU", null ],
-		[ "D:/Cards/mainwindow.cpp", "MU", null ]
+		[ "D:/Cards/mainwindow.cpp", "MU", null ],
+		[ "D:/Cards/startmenu.cpp", "MU", null ]
 	],
 	"UIC_OPTIONS" : [],
 	"UIC_SEARCH_PATHS" : [],

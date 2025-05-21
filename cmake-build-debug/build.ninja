@@ -89,6 +89,22 @@ build CMakeFiles/Cards.dir/foundation.cpp.obj: CXX_COMPILER__Cards_unscanned_Deb
   OBJECT_DIR = CMakeFiles\Cards.dir
   OBJECT_FILE_DIR = CMakeFiles\Cards.dir
 
+build CMakeFiles/Cards.dir/startmenu.cpp.obj: CXX_COMPILER__Cards_unscanned_Debug D$:/Cards/startmenu.cpp || cmake_object_order_depends_target_Cards
+  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  DEP_FILE = CMakeFiles\Cards.dir\startmenu.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -isystem D:/Cards/cmake-build-debug/Cards_autogen/include -isystem D:/QT/6.8.1/mingw_64/include/QtCore -isystem D:/QT/6.8.1/mingw_64/include -isystem D:/QT/6.8.1/mingw_64/mkspecs/win32-g++ -isystem D:/QT/6.8.1/mingw_64/include/QtGui -isystem D:/QT/6.8.1/mingw_64/include/QtWidgets
+  OBJECT_DIR = CMakeFiles\Cards.dir
+  OBJECT_FILE_DIR = CMakeFiles\Cards.dir
+
+build CMakeFiles/Cards.dir/helpdialog.cpp.obj: CXX_COMPILER__Cards_unscanned_Debug D$:/Cards/helpdialog.cpp || cmake_object_order_depends_target_Cards
+  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  DEP_FILE = CMakeFiles\Cards.dir\helpdialog.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -isystem D:/Cards/cmake-build-debug/Cards_autogen/include -isystem D:/QT/6.8.1/mingw_64/include/QtCore -isystem D:/QT/6.8.1/mingw_64/include -isystem D:/QT/6.8.1/mingw_64/mkspecs/win32-g++ -isystem D:/QT/6.8.1/mingw_64/include/QtGui -isystem D:/QT/6.8.1/mingw_64/include/QtWidgets
+  OBJECT_DIR = CMakeFiles\Cards.dir
+  OBJECT_FILE_DIR = CMakeFiles\Cards.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Cards
@@ -97,7 +113,7 @@ build CMakeFiles/Cards.dir/foundation.cpp.obj: CXX_COMPILER__Cards_unscanned_Deb
 #############################################
 # Link the executable Cards.exe
 
-build Cards.exe: CXX_EXECUTABLE_LINKER__Cards_Debug CMakeFiles/Cards.dir/Cards_autogen/mocs_compilation.cpp.obj CMakeFiles/Cards.dir/main.cpp.obj CMakeFiles/Cards.dir/card.cpp.obj CMakeFiles/Cards.dir/mainwindow.cpp.obj CMakeFiles/Cards.dir/foundation.cpp.obj | D$:/QT/6.8.1/mingw_64/lib/libQt6Widgets.a D$:/QT/6.8.1/mingw_64/lib/libQt6Gui.a D$:/QT/6.8.1/mingw_64/lib/libQt6Core.a || Cards_autogen Cards_autogen_timestamp_deps
+build Cards.exe: CXX_EXECUTABLE_LINKER__Cards_Debug CMakeFiles/Cards.dir/Cards_autogen/mocs_compilation.cpp.obj CMakeFiles/Cards.dir/main.cpp.obj CMakeFiles/Cards.dir/card.cpp.obj CMakeFiles/Cards.dir/mainwindow.cpp.obj CMakeFiles/Cards.dir/foundation.cpp.obj CMakeFiles/Cards.dir/startmenu.cpp.obj CMakeFiles/Cards.dir/helpdialog.cpp.obj | D$:/QT/6.8.1/mingw_64/lib/libQt6Widgets.a D$:/QT/6.8.1/mingw_64/lib/libQt6Gui.a D$:/QT/6.8.1/mingw_64/lib/libQt6Core.a || Cards_autogen Cards_autogen_timestamp_deps
   FLAGS = -g
   LINK_LIBRARIES = D:/QT/6.8.1/mingw_64/lib/libQt6Widgets.a  D:/QT/6.8.1/mingw_64/lib/libQt6Gui.a  D:/QT/6.8.1/mingw_64/lib/libQt6Core.a  -lmpr  -luserenv  -ld3d11  -ldxgi  -ldxguid  -ld3d12  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Cards.dir

@@ -14,7 +14,7 @@ find_package(Qt6 COMPONENTS
         Widgets
         REQUIRED)
 
-add_executable(Cards main.cpp card.cpp mainwindow.cpp foundation.cpp)
+add_executable(Cards main.cpp card.cpp mainwindow.cpp foundation.cpp startmenu.cpp helpdialog.cpp)
 target_link_libraries(Cards
         Qt::Core
         Qt::Gui
